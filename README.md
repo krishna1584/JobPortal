@@ -40,17 +40,11 @@ This is a **Job Portal** project designed to connect job seekers with employers.
    ```sh
    npm install
    ```
-4. Set up environment variables:
-   - Create a `.env` file in the root directory
-   - Add the following:
-     ```env
-     PORT=3000
-     ```
-5. Start the server:
+4. Start the server:
    ```sh
    npm start
    ```
-6. Open the browser and go to:
+5. Open the browser and go to:
    ```
    http://localhost:3000
    ```
