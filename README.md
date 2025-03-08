@@ -1,60 +1,94 @@
-# Job Portal
+# 🌐 Job Portal
 
-## Overview
-This is a **Job Portal** project designed to connect job seekers with employers. The platform allows users to create accounts, browse job listings, apply for jobs, and manage their applications efficiently. Employers can post job openings, review applications, and manage recruitment processes seamlessly.
+Welcome to **Job Portal**!
 
-## Features
-- User authentication (Sign Up, Login, Logout)
-- Job seekers can:
-  - Create and update profiles
-  - Search and apply for jobs
-  - Track their applications
-- Employers can:
-  - Post job listings
-  - Manage applications
-  - Contact job seekers
-- Routing and request handling using Express.js
-- Middleware for request processing
-- Static file handling with file streams
-- Error handling and exception management
+## 👑 Table of Contents
 
-## Tech Stack
-- **Backend:** Express.js
-- **Templating Engine:** EJS
-- **Package Management:** npm
-- **Middleware:** express-session, connect-flash
-- **File Uploads:** Multer
-- **Security & Authentication:** bcryptjs
-- **Body Parsing:** body-parser
+1. [Overview](#-overview)
+2. [Technologies](#-technologies)
+3. [Packages & Libraries Used](#-packages--libraries-used)
+4. [Getting Started](#-getting-started)
+5. [Setup](#-setup)
+6. [Features](#-features)
+7. [Demo & Screenshots](#-demo--screenshots)
 
-## Installation
+## 🌟 Overview
+
+**Description**: A job portal that connects job seekers with employers, built using Express.js and EJS.
+
+## 💻 Technologies
+
+Below is a breakdown of the core technologies used in this project.
+
+| 🌐 Web       |
+| ------------ |
+| **Express.js** |
+| **EJS**  |
+| **MongoDB**  |
+
+
+## 🛆 Packages / Libraries Used
+
+This project uses the following essential libraries and packages:
+
+| Package / Library  | Purpose                       |
+| ------------------ | ----------------------------- |
+| `express-session`  | Session management             |
+| `connect-flash`    | Flash messages for notifications |
+| `Multer`          | File uploads                   |
+| `Bcryptjs`        | Password hashing              |
+| `Body-Parser`     | Body parsing middleware       |
+
+
+## 🚀 Getting Started
+
+Follow these steps to set up the project in your local environment:
+
 1. Clone the repository:
-   ```sh
-   git clone https://github.com/yourusername/job-portal.git
+   ```bash
+   git clone https://github.com/krishna1584/jobportal.git
    ```
-2. Navigate to the project directory:
-   ```sh
-   cd job-portal
-   ```
-3. Install dependencies:
-   ```sh
+2. Install dependencies:
+   ```bash
    npm install
    ```
-4. Start the server:
-   ```sh
+
+3. Start the server:
+   ```bash
    npm start
    ```
-5. Open the browser and go to:
-   ```
-   http://localhost:3000
-   ```
 
-## Contributing
-Feel free to submit issues or pull requests to improve this project.
+## ⚙️ Setup
 
-## License
-This project is licensed under the MIT License.
+1. Go to `localhost:3000`.
+2. Register a new user.
+3. Explore job listings and applications.
 
-## Contact
-For any inquiries or feedback, reach out to me at [your email].
+
+## 🎯 Features
+
+Explore the unique features available in this application:
+
+- **User Authentication** (Sign Up, Login, Logout)
+- **Job Search and Application**
+- **Employer Job Posting**
+- **Application Management**
+
+---
+## 🔗 Demo & Screenshots
+
+- [Demo]
+- UserName : Demo
+- Password : Demo
+
+![1](/Screenshot/1.png)
+
+![2](/Screenshot/2.png)
+
+![3](/Screenshot/3.png)
+
+![4](/Screenshot/4.png)
+
+
+### Enjoy exploring and contributing to Job Portal!
 
