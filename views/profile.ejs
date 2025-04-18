@@ -1,0 +1,36 @@
+<%- include('layoutLoggedIn.ejs'); %>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <!-- Left Section: Profile Image & Name -->
+        <div class="col-md-4">
+            <div class="card shadow-lg border-0 rounded-4 text-center p-4">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="position-relative">
+                        <img src="/images/user.png" class="rounded-circle mb-3" alt="Profile Image" width="100" height="100" style="object-fit: cover;">
+                    </div>
+                    <h4 class="fw-bold" style="color: black !important;">
+                        <p><strong>Name: </strong> <%= user.name %></p>
+                    </h4>
+                    <p class="small"><i class="fas fa-user-tag me-1" style="color: black !important;"></i> <%= user.userType %></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section: User Details -->
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0 rounded-4 p-4">
+                <p><i class="fas fa-envelope text-primary me-2" style="color: black !important;"></i> <strong>Email:</strong> <%= user.email %></p>
+                <p><i class="fas fa-phone text-primary me-2" style="color: black !important;"></i> <strong>Phone:</strong> <%= user.phone%></p>
+                <p><i class="fas fa-map-marker-alt text-primary me-2" style="color: black !important;"></i> <strong>Location:</strong> <%= user.location%></p>
+                <p><i class="fas fa-graduation-cap text-primary me-2" style="color: black !important;"></i> <strong>Degree:</strong> <%= user.degree %></p>
+                <p><i class="fas fa-book text-primary me-2" style="color: black !important;"></i> <strong>Branch:</strong> <%= user.branch %></p>
+                <p><i class="fas fa-calendar text-primary me-2" style="color: black !important;"></i> <strong>Joined:</strong> 
+                    <%= new Date(user.date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

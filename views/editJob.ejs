@@ -1,0 +1,46 @@
+<%- include('layoutLoggedIn.ejs'); %>
+<div class="col-md-6 offset-md-3 card mt-5">
+    <form method="post" action="/updateJob">
+        <div class="form-group mt-5">
+          <label for="job-title">Job Title</label>
+          <input type="text" class="form-control" id="job-title" name="title" value="<%= jobPosting.title %>" required>
+        </div>
+        <div class="form-group">
+            <label for="job-title">Company Name</label>
+            <input type="text" class="form-control" id="companyName" name="company" value="<%= jobPosting.company %>" required>
+          </div>
+        <div class="form-group">
+          <label for="job-description">Job Description</label>
+          <textarea class="form-control" id="job-description" rows="6" name="description" required><%= jobPosting.description %></textarea>
+        </div>
+        <div class="form-group">
+          <label for="job-location">Job Location</label>
+          <input type="text" class="form-control" id="job-location" name="location" value="<%= jobPosting.location %>" required>
+        </div>
+        <div class="form-group">
+          <label for="job-type">Job Type</label>
+          <select class="form-control" id="job-type" name="type">
+            <option <%= jobPosting.type === 'Full-time' ? 'selected' : '' %>>Full-time</option>
+            <option <%= jobPosting.type === 'Part-time' ? 'selected' : '' %>>Part-time</option>
+            <option <%= jobPosting.type === 'Contract' ? 'selected' : '' %>>Contract</option>
+            <option <%= jobPosting.type === 'Temporary' ? 'selected' : '' %>>Temporary</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="job-salary">Salary Range</label>
+          <input type="text" class="form-control" id="job-salary" name="salary" value="<%= jobPosting.salary %>">
+        </div>
+        <div class="form-group">
+          <label for="job-requirements">Job Requirements</label>
+          <textarea class="form-control" id="job-requirements" rows="3" name="requirements"><%= jobPosting.requirements %></textarea>
+        </div>
+        <div><input type="text" hidden class="form-control" id="id" name="id" value="<%= jobPosting.id %>"></div>
+        <button type="submit" class="btn btn-primary loginButton">Submit</button>
+      </form>
+      <div class="mt-3"></div>
+    </div>
+    <div class="mt-5"></div>
+    <div class="mt-5"></div>
+
+</body>
+</html>

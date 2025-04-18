@@ -1,0 +1,330 @@
+<%- include('layoutLoggedIn.ejs'); %>
+
+<div class="container-fluid service_section">
+    <div class="row">
+      <div class="col-12 text-center mt-3">
+        <h2 class="font-weight-bold">Welcome <%= user.name %></h2>
+      </div>
+    </div>
+  
+    <div class="mt-3"></div>
+    <div class="container mt-3">
+      <% if (user.userType === "Applicant") { %>
+        <!-- Applicant Slider -->
+        <div class="container-fluid"></div>
+        <section class="slider_section" style="max-height: 450px; padding: 30px 0;">
+            <div id="applicantCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="detail_box">
+                                        <h1>Find Your Dream Job</h1>
+                                        <p>Search from thousands of jobs across different industries and apply easily.</p>
+                                        <div class="btn-box">
+                                            <a href="/view-jobs" class="btn-1">Browse Jobs</a>
+                                            <a href="/view-applications" class="btn-2">My Applications</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="img-box">
+                                        <img src="images/slider-applicant.png" alt="Find Jobs">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <!-- Job Search Section Below Slider -->
+        <div class="container mt-3 pt-4">
+          <h2 class="text-center font-weight-bold mt-3" style="font-size: 32px;">Search Jobs</h2>
+            <div class="card shadow-lg p-4" style="border-radius: 15px; background: #f9f9f9;">
+              <form method="post" action="/search-job">
+                  <div class="row" style="color: black"> 
+                      <div class="col-md-3 mb-3">
+                          <label for="jobTitle">Job Title</label>
+                          <input type="text" class="form-control rounded-pill border-0 shadow-sm" name="title" id="title" placeholder="Title">
+                      </div>
+                      <div class="col-md-3 mb-3">
+                          <label for="location">Location</label>
+                          <input type="text" class="form-control rounded-pill border-0 shadow-sm" name="location" id="location" placeholder="Location">
+                      </div>
+                      <div class="col-md-3 mb-3">
+                          <label for="jobType">Job Type</label>
+                          <select class="form-control rounded-pill border-0 shadow-sm" id="type" name="type">
+                              <option value="">Select Job Type</option>
+                              <option value="Full-time">Full-time</option>
+                              <option value="Part-time">Part-time</option>
+                              <option value="Contract">Contract</option>
+                              <option value="Temporary">Temporary</option>
+                          </select>
+                      </div>
+                      <div class="col-md-3 mt-4">
+                          <button class="btn buttonSearch" type="submit">Search</button>
+                      </div>
+                  </div>
+              </form>
+            </div>
+        </div>
+    <% } %>
+    
+          <% if (user.userType === "Employer") { %>
+   <!-- slider section -->
+   <div class="container-fluid"></div>
+   <section class=" slider_section ">
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-6 ">
+                <div class="detail_box">
+                  <h1>
+                    Hire quality candidates faster
+                  </h1>
+                  <p>
+                    Post a job for free and reach millions of active job seekers.
+                    Access pre-written job descriptions to leverage and tailor to attract quality candidates.
+                  </p>
+                  <div class="btn-box">
+                    <a href="/create-job" class="btn-1">
+                      Post a Job
+                    </a>
+                    <a href="/view-my-postings" class="btn-2">
+                      View Postings
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="img-box">
+                  <img src="images/slider-img-3.png" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </section>
+</div>
+          <% } %>
+    
+
+  
+<!-- service section -->
+<section class="service_section layout_padding">
+    <div class="container-fluid">
+      <div class="heading_container">
+        <h2>
+          Popular Job Categories
+        </h2>
+      </div>
+
+      <div class="service_container">
+        <div class="box">
+          <div class="img-box">
+            <img src="images/s-1.jpg" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              Software Development
+            </h5>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img-box">
+            <img src="images/s-2.jpg" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              Marketing
+            </h5>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img-box">
+            <img src="images/s-3.jpg" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              Human Resources
+            </h5>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img-box">
+            <img src="images/s-4.jpg" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              Accounting
+            </h5>
+          </div>
+        </div>
+        <div class="box">
+          <div class="img-box">
+            <img src="images/s-5.jpg" alt="">
+          </div>
+          <div class="detail-box">
+            <h5>
+              Data Analyst
+            </h5>
+          </div>
+        </div>
+        <div class="box">
+            <div class="img-box">
+              <img src="images/s-6.jpg" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>
+                Sales Manager
+              </h5>
+            </div>
+          </div>
+          <div class="box">
+            <div class="img-box">
+              <img src="images/s-7.jpg" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>
+                Project Manager
+              </h5>
+            </div>
+          </div>
+          <div class="box">
+            <div class="img-box">
+              <img src="images/s-8.jpg" alt="">
+            </div>
+            <div class="detail-box">
+              <h5>
+                Engineering
+              </h5>
+            </div>
+          </div>
+      </div>
+      <div class="btn-box">
+        <a href="">
+          Read More
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- end service section -->
+  <div class="service_section">
+<!-- info section -->
+<section class="info_section layout_padding2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="info_logo">
+            <h3>
+              JobSphere
+            </h3>
+            <p>
+              Find Your Dream Job or hire quality candidates
+            </p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="info_links">
+            <h4>
+              BASIC LINKS
+            </h4>
+            <ul class="  ">
+              <li class=" active">
+                <a class="" href="/dashboard">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <% if (user.userType === "Applicant") { %>
+              <li class="">
+                <a class="" href="/view-jobs"> Find a Job </a>
+              </li>
+              <li class="">
+                <a class="" href="/view-applications">View Applications</a>
+              </li>
+              <% } %>
+              <% if (user.userType === "Employer") { %>
+              <li class="">
+                  <a class="" href="/create-job"> Post a Job </a>
+                </li>
+              <li class="">
+                <a class="" href="/view-my-postings">View Postings</a>
+              </li>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="info_contact">
+            <h4>
+              CONTACT DETAILS
+            </h4>
+            <a href="">
+              <div class="img-box">
+                <img src="images/telephone-white.png" width="12px" alt="">
+              </div>
+              <p>
+                +91 1234567890
+              </p>
+            </a>
+            <a href="">
+              <div class="img-box">
+                <img src="images/envelope-white.png" width="18px" alt="">
+              </div>
+              <p>
+                JobSphere@gmail.com
+              </p>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="info_form ">
+            <h4>
+              NEWSLETTER
+            </h4>
+            <form action="">
+              <input type="email" placeholder="Enter your email">
+              <button>
+                Subscribe
+              </button>
+            </form>
+            <div class="social_box">
+              <a href="">
+                <img src="images/info-fb.png" alt="">
+              </a>
+              <a href="">
+                <img src="images/info-twitter.png" alt="">
+              </a>
+              <a href="">
+                <img src="images/info-linkedin.png" alt="">
+              </a>
+              <a href="">
+                <img src="images/info-youtube.png" alt="">
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end info_section -->
+
+
+  <!-- footer section -->
+  <section class="container-fluid footer_section">
+    <div class="container">
+      <p>
+        &copy; <span id="displayYear"></span> All Rights Reserved By
+        <a>JobSphere</a>
+      </p>
+    </div>
+  </section>
+  <!-- footer section -->
+</div>
+  <!-- footer section -->
+</body>
+</html>

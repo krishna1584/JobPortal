@@ -1,0 +1,47 @@
+<%- include('layoutLoggedIn.ejs'); %>
+<script>
+    function editJob() {
+        alert(id);
+        window.location.href = '/editJob?id=' + id;
+      }
+</script>
+<div class="container">
+    <div class="mt-4"><h2>My Postings</h1></div>
+    <div class="row mt-5">
+        <% if (jobPostings.length > 0) { %>
+      <% jobPostings.forEach(jobPosting => { %>
+        <div class="col-md-4">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title"><%= jobPosting.title %></h5>
+              <p class="card-text"><%= jobPosting.company %></p>
+              <p class="card-text">Posted on: <%= jobPosting.createdAt.toDateString() %></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href = '/editJob?id=<%= jobPosting.id %>';">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-danger" id="<%= jobPosting.id %>" onclick=deleteJob(this.id)>Delete</button>
+                  <button type="button" class="btn btn-sm btn-outline-primary" onclick="window.location.href = '/view-applicants-for-job?id=<%= jobPosting.id %>';">View Applicants</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+      <% } %>
+    </div>
+  </div>
+  <script>
+    function deleteJob(id) {
+        const response = confirm("Are you sure you want to delete the selected job?");
+        if (response) {
+            window.location.href = '/deleteJob?id='+id;
+        } 
+    }
+  </script>
+
+
+ 
+</body>
+
+</html>

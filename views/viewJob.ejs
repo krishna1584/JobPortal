@@ -1,0 +1,37 @@
+<%- include('layoutLoggedIn.ejs'); %>
+<div class="container">
+    <div class="row mt-5">
+        <% if (job) { %>
+        <div class="col-md-8 offset-md-2">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+              <div class="row d-flex justify-content-between align-items-center">
+                <h5 class="card-title ml-3"><%= job.title %></h5>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-primary" style="width: 100px;" onclick="window.location.href = '/apply-job?id=<%= job.id %>';">Apply</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" style="width: 100px; margin-right: 10px;" id="<%= job.id %>" onclick="window.location.href = '/view-jobs';">Go Back</button>
+                </div>
+            </div>            
+                <p class="card-text"><%= job.company %></p>
+                <p class="card-text">Location: <%= job.location %></p>
+                <p class="card-text">Type: <%= job.type %></p>
+                <p class="card-text">Posted on: <%= job.createdAt.toDateString() %></p>
+                <p class="card-text">Job Description:</p>
+                <p style="white-space: pre-line;"><%= job.description %></p>
+                <!-- <p class="card-text"><%= job.description %></p> -->
+                <p class="card-text">Job Requirements:</p>
+                <p class="card-text"><%= job.requirements %></p>
+                <p class="card-text">Type: <%= job.type %></p>
+                <p class="card-text">Salary: <%= job.salary %></p>
+                <br>
+                <p class="card-text">Posted by: <%= job.creatorName %></p>
+                <p class="card-text">Contact: <%= job.creatorEmail %></p>
+              </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</body>
+
+</html>

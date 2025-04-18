@@ -1,0 +1,46 @@
+<%- include('layoutLoggedIn.ejs'); %>
+<div class="container">
+    <div class="mt-4"><h2>List of Jobs</h1></div>
+    <div class="row mt-5">
+        <% if (jobs.length > 0) { %>
+      <% jobs.forEach(job => { %>
+        <div class="col-md-8">
+          <div class="card mb-4 shadow-sm-3">
+            <div class="card-body">
+                <div class="row">
+              <h5 class="card-title ml-3 col-md-7 "><%= job.title %></h5>
+              <p class="card-text ">Posted on: <%= job.createdAt.toDateString() %></p>
+                    </div>
+              <div class="row">
+              <p class="card-text ml-3 col-md-7"><%= job.company %>,&nbsp; <%= job.location %></p>
+              <div class="d-flex justify-content-between align-items-center offset-md-1">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-primary" onclick="window.location.href = '/view-job?id=<%= job.id %>';">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-success" onclick="window.location.href = '/apply-job?id=<%= job.id %>';">Apply</button>
+                </div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+      <% } else { %>
+        <h5>No job found with the required parameters &nbsp;</h5>
+        <a href="/dashboard">Search again</a>
+        <% } %>
+    </div>
+  </div>
+  <script>
+    function deleteJob(id) {
+        const response = confirm("Are you sure you want to delete the selected job?");
+        if (response) {
+            window.location.href = '/deleteJob?id='+id;
+        } 
+    }
+  </script>
+
+
+ 
+</body>
+
+</html>
