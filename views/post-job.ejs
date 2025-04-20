@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post a Job - Job Portal</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <%- include('partials/header', { user: user }) %>
+    <header>
+        <nav>
+            <h1>Job Portal</h1>
+            <div>
+                <a href="/">Home</a>
+                <a href="/jobs">Browse Jobs</a>
+                <a href="/employer/post-job">Post a Job</a>
+            </div>
+        </nav>
+    </header>
 
     <main>
         <section class="post-job-form">
@@ -45,6 +52,8 @@
         </section>
     </main>
 
-    <%- include('partials/footer') %>
+    <footer>
+        <p>&copy; 2023 Job Portal. All rights reserved.</p>
+    </footer>
 </body>
 </html>

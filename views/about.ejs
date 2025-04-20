@@ -14,10 +14,10 @@
     <main>
         <section class="about-section">
             <h2>About Job Portal</h2>
-            <p>Welcome to Job Portal, your trusted partner in career development and talent acquisition. Since our inception in 2023, we've been dedicated to bridging the gap between talented professionals and outstanding career opportunities.</p>
+            <p>Welcome to Job Portal, your trusted partner in career development and talent acquisition. Since our inception in 2025, we've been dedicated to bridging the gap between talented professionals and outstanding career opportunities across India.</p>
             
             <h3>Our Mission</h3>
-            <p>To create a seamless, efficient, and user-friendly platform that connects job seekers with their dream careers and helps employers find their perfect candidates.</p>
+            <p>To create a seamless, efficient, and user-friendly platform that connects job seekers with their dream careers and helps employers find their perfect candidates in the Indian job market.</p>
             
             <h3>Why Choose Us?</h3>
             <div class="features">
@@ -43,7 +43,9 @@
     <%- include('partials/footer') %>
 
     <script>
-        // Include the same theme and menu toggle scripts from index.ejs
+        // Set initial theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
 </body>
 </html>

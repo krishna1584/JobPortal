@@ -20,17 +20,17 @@
                 <div class="contact-card">
                     <i class="fas fa-envelope"></i>
                     <h3>Email</h3>
-                    <p>support@jobportal.com</p>
+                    <p>support@jobportal.co.in</p>
                 </div>
                 <div class="contact-card">
                     <i class="fas fa-phone"></i>
                     <h3>Phone</h3>
-                    <p>+1 (555) 123-4567</p>
+                    <p>+91 (800) 123-4567</p>
                 </div>
                 <div class="contact-card">
                     <i class="fas fa-map-marker-alt"></i>
                     <h3>Address</h3>
-                    <p>123 Job Street<br>Career City, WK 12345</p>
+                    <p>Cyber City<br>Gurugram, Haryana 122002<br>India</p>
                 </div>
             </div>
 
@@ -58,7 +58,9 @@
     <%- include('partials/footer') %>
 
     <script>
-        // Include the same theme and menu toggle scripts from index.ejs
+        // Set initial theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
 </body>
 </html>
