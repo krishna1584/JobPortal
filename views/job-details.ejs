@@ -1,15 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= job.title %> - Job Portal</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <%- include('partials/header', { user: user }) %>
+    <header>
+        <nav>
+            <h1>Job Portal</h1>
+            <div>
+                <a href="/">Home</a>
+                <a href="/jobs">Browse Jobs</a>
+                <a href="/employer/post-job">Post a Job</a>
+            </div>
+        </nav>
+    </header>
 
     <main>
         <section class="job-details">
@@ -30,40 +37,32 @@
                 <p><%= job.requirements %></p>
             </div>
 
-            <% if (isAuthenticated) { %>
-                <% const hasApplied = applications.some(app => app.jobId === job.id && app.userId === user.id); %>
-                <div class="application-form">
-                    <% if (hasApplied) { %>
-                        <div class="already-applied">
-                            <p>You have already applied for this position.</p>
-                            <a href="/my-applications" class="button">View My Applications</a>
-                        </div>
-                    <% } else { %>
-                        <h3>Apply for this Position</h3>
-                        <form action="/jobs/<%= job.id %>/apply" method="POST" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="name">Full Name</label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
+            <div class="application-form">
+                <h3>Apply for this Position</h3>
+                <form action="/jobs/<%= job.id %>/apply" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
 
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
 
-                            <div class="form-group">
-                                <label for="resume">Resume (PDF)</label>
-                                <input type="file" id="resume" name="resume" accept=".pdf" required>
-                            </div>
+                    <div class="form-group">
+                        <label for="resume">Resume (PDF)</label>
+                        <input type="file" id="resume" name="resume" accept=".pdf" required>
+                    </div>
 
-                            <button type="submit">Submit Application</button>
-                        </form>
-                    <% } %>
-                </div>
-            <% } %>
+                    <button type="submit">Submit Application</button>
+                </form>
+            </div>
         </section>
     </main>
 
-    <%- include('partials/footer') %>
+    <footer>
+        <p>&copy; 2023 Job Portal. All rights reserved.</p>
+    </footer>
 </body>
 </html>

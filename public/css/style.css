@@ -87,7 +87,9 @@ nav a:hover {
 
 .user-profile {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    gap: 0.5rem;
     cursor: pointer;
     position: relative;
 }
@@ -122,8 +124,6 @@ nav a:hover {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     display: none;
     z-index: 1000;
-    margin-top: 0.5rem;
-    min-width: 150px;
 }
 
 .user-dropdown.active {
@@ -141,62 +141,6 @@ nav a:hover {
 .user-dropdown a:hover {
     background-color: var(--section-bg);
     border-radius: 4px;
-}
-
-/* My Applications styles */
-.my-applications {
-    padding: 2rem;
-    background-color: var(--card-bg);
-    border-radius: 12px;
-    margin-bottom: 2rem;
-}
-
-.applications-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
-}
-
-.application-card {
-    background-color: var(--section-bg);
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-}
-
-.application-card h3 {
-    color: var(--primary-color);
-    margin-bottom: 0.5rem;
-}
-
-.application-card .company {
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
-.application-card .location {
-    color: var(--text-color);
-    opacity: 0.8;
-    margin-bottom: 0.5rem;
-}
-
-.application-card .applied-date {
-    font-size: 0.9rem;
-    color: var(--text-color);
-    opacity: 0.7;
-    margin-bottom: 1rem;
-}
-
-.no-applications {
-    text-align: center;
-    padding: 3rem;
-}
-
-.no-applications p {
-    margin-bottom: 1.5rem;
-    color: var(--text-color);
-    opacity: 0.8;
 }
 
 /* Mobile menu */
