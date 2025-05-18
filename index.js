@@ -5,40 +5,67 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const flash = require('connect-flash');
+const fs = require('fs');
+const fsp = require('fs').promises;
+const connectDB = require('./db');
+connectDB();
+
+const User = require('./models/User');
+const Job = require('./models/Job');
+const Application = require('./models/Application');
+
+
 
 // Create Express application
 const app = express();
 const port = 3000;
 
-// Request Pipeline Explanation:
-// 1. Client sends request
-// 2. Global middleware (logging, body parsing, etc.)
-// 3. Route-specific middleware (auth, validation, etc.)
-// 4. Route handler
-// 5. Response sent back to client
-// 6. Error handling middleware (if any errors occur)
+// Data file paths
+// const DATA_PATHS = {
+//     users: path.join(__dirname, 'data', 'users.json'),
+//     jobs: path.join(__dirname, 'data', 'jobs.json'),
+//     applications: path.join(__dirname, 'data', 'applications.json')
+// };
 
-// Custom logging middleware - demonstrates request flow
-app.use((req, res, next) => {
-    const start = Date.now();
-    // Non-blocking operation: using res.on('finish')
-    res.on('finish', () => {
-        const duration = Date.now() - start;
-        console.log(`${req.method} ${req.url} - ${duration}ms`);
-    });
-    next();
-});
+// Data management functions
+// async function readData(type) {
+//     try {
+//         const data = await fsp.readFile(DATA_PATHS[type], 'utf8');
+//         return JSON.parse(data);
+//     } catch (error) {
+//         if (error.code === 'ENOENT') {
+//             await fsp.writeFile(DATA_PATHS[type], '[]');
+//             return [];
+//         }
+//         throw error;
+//     }
+// }
+
+// async function writeData(type, data) {
+//     await fsp.writeFile(DATA_PATHS[type], JSON.stringify(data, null, 2));
+// }
+
+
+
+// Custom logging middleware
+// app.use((req, res, next) => {
+//     const start = Date.now();
+//     res.on('finish', () => {
+//         const duration = Date.now() - start;
+//         console.log(`${req.method} ${req.url} - ${duration}ms`);
+//     });
+//     next();
+// });
 
 // Global Middleware Setup
-app.use(bodyParser.urlencoded({ extended: true })); // Parse URL-encoded bodies
-app.use(bodyParser.json()); // Parse JSON bodies
-app.use(express.static('public')); // Serve static files
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(express.static('public'));
 
 // Template Engine Configuration
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Session middleware with security options
 app.use(session({
     secret: 'your-secret-key',
     resave: false,
@@ -46,13 +73,12 @@ app.use(session({
     cookie: {
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000 // 24 hours
+        maxAge: 24 * 60 * 60 * 1000
     }
 }));
 
 app.use(flash());
 
-// Custom middleware to handle response locals
 app.use((req, res, next) => {
     res.locals.user = req.session.user || null;
     res.locals.errors = req.flash('error');
@@ -60,15 +86,12 @@ app.use((req, res, next) => {
     next();
 });
 
-// Multer configuration for file uploads - demonstrates non-blocking I/O
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        // Async operation: directory selection
         const uploadPath = file.fieldname === 'resume' ? 'public/uploads/resumes' : 'public/uploads/avatars';
         cb(null, uploadPath);
     },
     filename: (req, file, cb) => {
-        // Async operation: filename generation
         cb(null, Date.now() + '-' + file.originalname);
     }
 });
@@ -76,7 +99,6 @@ const storage = multer.diskStorage({
 const upload = multer({ 
     storage,
     fileFilter: (req, file, cb) => {
-        // Validate file types
         const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
         if (!allowedTypes.includes(file.mimetype)) {
             return cb(new Error('Invalid file type'), false);
@@ -84,16 +106,10 @@ const upload = multer({
         cb(null, true);
     },
     limits: {
-        fileSize: 5 * 1024 * 1024 // 5MB limit
+        fileSize: 5 * 1024 * 1024
     }
 });
 
-// In-memory data store (replace with a database in production)
-let users = [];
-let jobs = [];
-let applications = [];
-
-// Authentication middleware - demonstrates middleware chaining
 const isAuthenticated = (req, res, next) => {
     if (req.session.user) {
         return next();
@@ -102,7 +118,6 @@ const isAuthenticated = (req, res, next) => {
     res.redirect('/auth/login');
 };
 
-// Example of a custom validator middleware
 const validateJob = (req, res, next) => {
     const { title, company, description } = req.body;
     const errors = [];
@@ -118,15 +133,11 @@ const validateJob = (req, res, next) => {
     next();
 };
 
-// Routes with creative template usage
-app.get('/', async (req, res) => {
+app.get('/', async (req, res, next) => {
     try {
-        // Demonstrate non-blocking async operation
-        const userJobs = await new Promise(resolve => {
-            setTimeout(() => {
-                resolve(jobs.filter(job => !req.session.user || job.userId === req.session.user.id));
-            }, 100);
-        });
+        const allJobs = await Job.find();
+        const userJobs = allJobs.filter(job => !req.session.user || job.userId === req.session.user.id);
+
 
         res.render('index', { 
             jobs: userJobs,
@@ -142,43 +153,55 @@ app.get('/', async (req, res) => {
     }
 });
 
-// About page with dynamic content
-app.get('/about', (req, res) => {
-    res.render('about', {
-        pageTitle: 'About Us',
-        stats: {
-            users: users.length,
-            jobs: jobs.length,
-            applications: applications.length
-        }
-    });
+app.get('/about', async (req, res, next) => {
+    try {
+        const [users, jobs, applications] = await Promise.all([
+        User.find(),
+        Job.find(),
+        Application.find()
+        ]);
+
+
+        res.render('about', {
+            pageTitle: 'About Us',
+            stats: {
+                users: users.length,
+                jobs: jobs.length,
+                applications: applications.length
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
 });
 
-// Contact page with form handling
 app.get('/contact', (req, res) => {
     res.render('contact', {
         pageTitle: 'Contact Us',
         contactInfo: {
             email: 'support@jobportal.com',
-            phone: '+1 (555) 123-4567',
-            address: '123 Job Street, Career City'
+            phone: '+91 9999999999',
+            address: '123 demo address'
         }
     });
 });
 
-// Demonstrate proper async/await error handling
 app.post('/contact', async (req, res, next) => {
     try {
-        // Simulate async operation (e.g., sending email)
-        await new Promise((resolve, reject) => {
-            setTimeout(() => {
-                if (Math.random() > 0.1) { // 90% success rate
-                    resolve();
-                } else {
-                    reject(new Error('Failed to send message'));
-                }
-            }, 1000);
-        });
+        console.log('Message Received:');
+        console.log(`Name: ${req.body.name}`);
+        console.log(`Email: ${req.body.email}`);
+        console.log(`Message: ${req.body.message}`);
+
+        // await new Promise((resolve, reject) => {
+        //     setTimeout(() => {
+        //         if (Math.random() > 0.1) {
+        //             resolve();
+        //         } else {
+        //             reject(new Error('Failed to send message'));
+        //         }
+        //     }, 1000);
+        // });
 
         req.flash('success', 'Message sent successfully!');
         res.redirect('/contact');
@@ -187,15 +210,15 @@ app.post('/contact', async (req, res, next) => {
     }
 });
 
-// Auth routes with proper error handling
 app.get('/auth/login', (req, res) => {
     res.render('auth/login', { pageTitle: 'Sign In' });
 });
 
 app.post('/auth/login', async (req, res, next) => {
     try {
-        const { email, password } = req.body;
-        const user = users.find(u => u.email === email);
+        const { email, password } = req.body; 
+
+        const user = await User.findOne({ email }); 
 
         if (!user || !await bcrypt.compare(password, user.password)) {
             req.flash('error', 'Invalid email or password');
@@ -214,6 +237,7 @@ app.post('/auth/login', async (req, res, next) => {
     }
 });
 
+
 app.get('/auth/register', (req, res) => {
     res.render('auth/register', { pageTitle: 'Create Account' });
 });
@@ -221,27 +245,28 @@ app.get('/auth/register', (req, res) => {
 app.post('/auth/register', upload.single('avatar'), async (req, res, next) => {
     try {
         const { name, email, password } = req.body;
-        
-        if (users.some(u => u.email === email)) {
+
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
             req.flash('error', 'Email already registered');
             return res.redirect('/auth/register');
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = {
-            id: Date.now(),
+        const newUser = new User({
             name,
             email,
             password: hashedPassword,
             avatar: req.file ? `/uploads/avatars/${req.file.filename}` : '/images/default-avatar.png'
-        };
+        });
 
-        users.push(user);
+        await newUser.save();
+
         req.session.user = {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            avatar: user.avatar
+            id: newUser.id,
+            name: newUser.name,
+            email: newUser.email,
+            avatar: newUser.avatar
         };
 
         res.redirect('/');
@@ -255,15 +280,20 @@ app.get('/auth/logout', (req, res) => {
     res.redirect('/');
 });
 
-// Job routes with validation middleware
 app.get('/employer/post-job', isAuthenticated, (req, res) => {
-    res.render('post-job', { pageTitle: 'Post a Job' });
+    const errorMessages = req.flash('error');
+    const successMessages = req.flash('success');
+    res.render('post-job', {
+        pageTitle: 'Post a Job',
+        error: errorMessages,
+        success: successMessages
+    });
 });
+
 
 app.post('/employer/post-job', [isAuthenticated, validateJob], async (req, res, next) => {
     try {
-        const job = {
-            id: Date.now(),
+        const newJob = new Job({
             userId: req.session.user.id,
             title: req.body.title,
             company: req.body.company,
@@ -271,75 +301,91 @@ app.post('/employer/post-job', [isAuthenticated, validateJob], async (req, res, 
             requirements: req.body.requirements,
             location: req.body.location,
             createdAt: new Date()
-        };
-        
-        // Simulate async database operation
-        await new Promise(resolve => setTimeout(resolve, 100));
-        jobs.push(job);
+        });
+    await newJob.save();
+
         
         req.flash('success', 'Job posted successfully!');
         res.redirect('/jobs');
     } catch (error) {
-        next(error);
+        req.flash('error', 'Failed to post the job. Please try again.');
+        res.redirect('/employer/post-job');
     }
 });
 
-// Job search with pagination - demonstrates query handling
 app.get('/jobs', async (req, res, next) => {
     try {
         const { search, location, page = 1 } = req.query;
         const limit = 10;
         const skip = (page - 1) * limit;
 
-        let filteredJobs = jobs;
-        
+        const query = {};
         if (search) {
-            filteredJobs = filteredJobs.filter(job => 
-                job.title.toLowerCase().includes(search.toLowerCase()) ||
-                job.description.toLowerCase().includes(search.toLowerCase())
-            );
+            query.$or = [
+            { title: new RegExp(search, 'i') },
+            { description: new RegExp(search, 'i') }
+            ];
         }
-        
         if (location) {
-            filteredJobs = filteredJobs.filter(job => 
-                job.location.toLowerCase().includes(location.toLowerCase())
-            );
+            query.location = new RegExp(location, 'i');
         }
 
-        // Pagination
-        const totalJobs = filteredJobs.length;
+        const totalJobs = await Job.countDocuments(query);
         const totalPages = Math.ceil(totalJobs / limit);
-        filteredJobs = filteredJobs.slice(skip, skip + limit);
+        const jobs = await Job.find(query).skip(skip).limit(limit);
+
+        // Fetching flash messages
+        const successMessages = req.flash('success');
+        const errorMessages = req.flash('error');
 
         res.render('jobs', { 
-            jobs: filteredJobs,
+            jobs,
             pageTitle: 'Browse Jobs',
             pagination: {
-                current: page,
-                total: totalPages,
-                hasNext: page < totalPages,
-                hasPrev: page > 1
-            }
+            current: parseInt(page),
+            total: totalPages,
+            hasNext: page < totalPages,
+            hasPrev: page > 1
+            },
+            success: successMessages,
+            error: errorMessages
         });
     } catch (error) {
         next(error);
     }
 });
 
-// Custom error handler middleware
+
+app.get('/jobs/:id', async (req, res, next) => {
+    const jobId = req.params.id;
+
+    try {
+        const job = await Job.findById(jobId);
+
+        if (!job) {
+            return res.status(404).send('Job not found');
+        }
+
+        // Convert createdAt to a Date object
+        job.createdAt = new Date(job.createdAt);
+
+        res.render('job-details', { job });
+    } catch (err) {
+        next(err);
+    }
+});
+
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
     
-    // Handle specific types of errors
     if (err instanceof multer.MulterError) {
         req.flash('error', 'File upload error: ' + err.message);
         return res.redirect('back');
     }
 
-    // Log error for monitoring
     console.error(new Date().toISOString(), err);
 
-    // Render error page with appropriate status
     res.status(err.status || 500).render('error', { 
         error: process.env.NODE_ENV === 'production' 
             ? 'Something went wrong!' 
@@ -348,7 +394,6 @@ app.use((err, req, res, next) => {
     });
 });
 
-// 404 handler - must be last middleware
 app.use((req, res) => {
     res.status(404).render('error', { 
         error: 'Page not found',
@@ -356,16 +401,14 @@ app.use((req, res) => {
     });
 });
 
-// Create upload directories if they don't exist - demonstrates blocking fs operations
-const fs = require('fs');
-const uploadDirs = ['public/uploads/resumes', 'public/uploads/avatars'];
-uploadDirs.forEach(dir => {
+// Create required directories
+const dirs = ['data', 'public/uploads/resumes', 'public/uploads/avatars'];
+dirs.forEach(dir => {
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
     }
 });
 
-// Start server
 app.listen(port, () => {
     console.log(`Job Portal running at http://localhost:${port}`);
 });

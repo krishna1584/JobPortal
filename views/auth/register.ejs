@@ -24,11 +24,14 @@
     <main>
         <div class="auth-container">
             <h2>Create Account</h2>
-            <% if (messages.error) { %>
+            <% if (errors && errors.length > 0) { %>
                 <div class="alert alert-error">
-                    <%= messages.error %>
+                    <% errors.forEach(function(error) { %>
+                        <p><%= error %></p>
+                    <% }); %>
                 </div>
             <% } %>
+            
             <form action="/auth/register" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="name">Full Name</label>

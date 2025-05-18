@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1745382172760",
+    "name": "test",
+    "email": "test@gmail.com",
+    "password": "$2a$10$d.W.VNwO0aCXhBBULfsEyuG5FMRmrb6jT3GIFvVYyJx9H20Kv0.Pe",
+    "avatar": "/images/default-avatar.png"
+  },
+  {
+    "id": "1745384054460",
+    "name": "Test2",
+    "email": "tt@gmail.com",
+    "password": "$2a$10$8emzMamRfbqAL.GQHByxU.8j090bTcn04soDIOW/XAWz.tFdwHiM6",
+    "avatar": "/images/default-avatar.png"
+  },
+  {
+    "id": "1745385028927",
+    "name": "ok",
+    "email": "ok@gmail.com",
+    "password": "$2a$10$yG/T.M2KrXE5ePQQKI0xyOOlf7B8omLAsNQM3dH6SSXDbtWdUD02u",
+    "avatar": "/uploads/avatars/1745385028856-2560px-UPI-Logo-vector.svg.png"
+  }
+]

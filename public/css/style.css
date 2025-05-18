@@ -1,24 +1,24 @@
 /* Reset and base styles */
 :root {
-    --primary-color: #4f46e5;
-    --primary-hover: #4338ca;
-    --bg-color: #ffffff;
-    --text-color: #1f2937;
-    --border-color: #e5e7eb;
-    --header-bg: #1e1b4b;
-    --card-bg: #ffffff;
-    --section-bg: #f9fafb;
+    --primary-color: #1d1d1f;         /* Apple's near-black for text */
+    --primary-hover: #3a3a3c;         /* Slightly lighter for hover states */
+    --bg-color: #e2dede;              /* Pure white background */
+    --text-color: #1d1d1f;            /* Consistent dark gray text */
+    --border-color: #e5e5ea;          /* Very light gray border */
+    --header-bg: #1e1e1e;             /* Apple’s soft gray header background */
+    --card-bg: #f5f5f5;               /* Crisp white card */
+    --section-bg: #f9f9f9;            /* Subtle light gray */
 }
 
 [data-theme="dark"] {
-    --primary-color: #6366f1;
-    --primary-hover: #4f46e5;
-    --bg-color: #111827;
-    --text-color: #f3f4f6;
-    --border-color: #374151;
-    --header-bg: #1e1b4b;
-    --card-bg: #1f2937;
-    --section-bg: #161e2e;
+    --primary-color: #ffffff;         /* Light gray for text and accents */
+    --primary-hover: #3a3a3c;         /* Mid-gray hover */
+    --bg-color: #0e0d0d;              /* Jet black base */
+    --text-color: #f5f5f7;            /* Light gray text */
+    --border-color: #3a3a3c;          /* Dark gray border */
+    --header-bg: #1c1c1e;             /* Dark gray header background */
+    --card-bg: #1c1c1e;               /* Matching card background */
+    --section-bg: #121212;            /* Very dark gray */
 }
 
 * {
@@ -105,7 +105,7 @@ nav a:hover {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: var(--primary-color);
+    background-color: #1d1d1f;
     color: white;
     display: flex;
     align-items: center;
@@ -183,9 +183,8 @@ main {
 .hero-section {
     text-align: center;
     padding: 4rem 0;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    background: linear-gradient(135deg, #1d1d1f 0%, var(--primary-hover) 100%);
     color: white;
-    border-radius: 12px;
     margin-bottom: 3rem;
 }
 
@@ -211,7 +210,7 @@ main {
 .feature-card {
     background: var(--card-bg);
     padding: 2rem;
-    border-radius: 12px;
+    
     text-align: center;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
@@ -230,7 +229,6 @@ main {
 .review-card {
     background: var(--card-bg);
     padding: 2rem;
-    border-radius: 12px;
     margin-bottom: 1.5rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
@@ -252,7 +250,6 @@ main {
 .search-section {
     background-color: var(--section-bg);
     padding: 2rem;
-    border-radius: 12px;
     margin-bottom: 2rem;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
@@ -266,7 +263,7 @@ main {
     flex: 1;
     padding: 0.75rem;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+
     background-color: var(--bg-color);
     color: var(--text-color);
 }
@@ -281,7 +278,6 @@ main {
 .job-card {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
     padding: 1.5rem;
     transition: transform 0.3s, box-shadow 0.3s;
 }
@@ -294,7 +290,6 @@ main {
 .job-listing {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
     padding: 1.5rem;
     margin-bottom: 1rem;
     transition: transform 0.3s;
@@ -319,7 +314,6 @@ input, textarea {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: border-color 0.3s;
@@ -336,11 +330,10 @@ textarea {
 }
 
 button {
-    background-color: var(--primary-color);
+    background-color: #1d1d1f;
     color: white;
     padding: 0.75rem 1.5rem;
     border: none;
-    border-radius: 8px;
     cursor: pointer;
     font-weight: 500;
     transition: background-color 0.3s;
@@ -356,7 +349,6 @@ button:hover {
     margin: 2rem auto;
     padding: 2rem;
     background-color: var(--card-bg);
-    border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
@@ -379,7 +371,6 @@ button:hover {
 .about-section {
     background-color: var(--card-bg);
     padding: 2rem;
-    border-radius: 12px;
     margin-bottom: 2rem;
 }
 
@@ -392,7 +383,6 @@ button:hover {
 .contact-section {
     background-color: var(--card-bg);
     padding: 2rem;
-    border-radius: 12px;
     margin-bottom: 2rem;
 }
 
@@ -406,7 +396,6 @@ button:hover {
 .contact-card {
     padding: 1.5rem;
     background-color: var(--section-bg);
-    border-radius: 8px;
     text-align: center;
 }
 
@@ -462,6 +451,53 @@ footer {
     border-top: 1px solid rgba(255,255,255,0.1);
 }
 
+.error-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.error-container {
+    text-align: center;
+    padding: 2rem;
+}
+
+.error-code {
+    font-size: 6rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--primary-color);
+}
+
+.error-title {
+    font-size: 1.5rem;
+    margin: 0.5rem 0;
+    color: var(--primary-color);
+}
+
+.error-message {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+}
+
+.home-button {
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.95rem;
+    background-color: #1d1d1f;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.home-button:hover {
+    background-color: var(--primary-hover);
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     .nav-links {
@@ -486,3 +522,20 @@ footer {
         text-align: center;
     }
 }
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+

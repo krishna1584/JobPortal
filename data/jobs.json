@@ -1,0 +1,132 @@
+[
+  {
+    "id": "1745382336301",
+    "userId": "1745382172760",
+    "title": "SD Intern",
+    "company": "Microsoft",
+    "description": "Need a beginner level SD, expert in JavaScript.",
+    "requirements": "No past experiences required",
+    "location": "Gurugram, India",
+    "createdAt": "2025-04-23T04:25:36.301Z"
+  },
+  {
+    "id": "1745382336302",
+    "userId": "1745382172761",
+    "title": "Frontend Developer",
+    "company": "Google",
+    "description": "Looking for a skilled frontend developer with experience in React and HTML.",
+    "requirements": "2+ years of experience in frontend development.",
+    "location": "Bangalore, India",
+    "createdAt": "2025-04-22T08:20:00.500Z"
+  },
+  {
+    "id": "1745382336303",
+    "userId": "1745382172762",
+    "title": "Backend Developer",
+    "company": "Amazon",
+    "description": "Seeking a backend developer with strong experience in Node.js and MongoDB.",
+    "requirements": "3+ years of experience in backend development.",
+    "location": "Hyderabad, India",
+    "createdAt": "2025-04-21T10:15:45.900Z"
+  },
+  {
+    "id": "1745382336304",
+    "userId": "1745382172763",
+    "title": "UX Designer",
+    "company": "Adobe",
+    "description": "Looking for a UX designer to help design user-friendly interfaces.",
+    "requirements": "Experience in wireframing and prototyping.",
+    "location": "Mumbai, India",
+    "createdAt": "2025-04-20T12:35:20.700Z"
+  },
+  {
+    "id": "1745382336305",
+    "userId": "1745382172764",
+    "title": "Data Analyst",
+    "company": "Flipkart",
+    "description": "Hiring a data analyst to analyze sales and user behavior.",
+    "requirements": "Strong knowledge of Excel and SQL.",
+    "location": "Chennai, India",
+    "createdAt": "2025-04-19T09:25:10.100Z"
+  },
+  {
+    "id": "1745382336306",
+    "userId": "1745382172765",
+    "title": "Mobile Developer",
+    "company": "Samsung",
+    "description": "Looking for an experienced mobile app developer for Android.",
+    "requirements": "3+ years of experience in Android app development.",
+    "location": "Delhi, India",
+    "createdAt": "2025-04-18T07:50:00.200Z"
+  },
+  {
+    "id": "1745382336307",
+    "userId": "1745382172766",
+    "title": "Digital Marketing Specialist",
+    "company": "Zomato",
+    "description": "Seeking a digital marketing specialist to handle social media campaigns.",
+    "requirements": "Experience in Google Ads and Facebook Ads.",
+    "location": "Bangalore, India",
+    "createdAt": "2025-04-17T11:30:25.800Z"
+  },
+  {
+    "id": "1745382336308",
+    "userId": "1745382172767",
+    "title": "HR Manager",
+    "company": "Tata Consultancy Services",
+    "description": "Looking for an HR manager with experience in recruitment.",
+    "requirements": "3+ years of experience in human resources.",
+    "location": "Pune, India",
+    "createdAt": "2025-04-16T13:10:15.900Z"
+  },
+  {
+    "id": "1745382336309",
+    "userId": "1745382172768",
+    "title": "Product Manager",
+    "company": "Microsoft",
+    "description": "Seeking a product manager for our new software division.",
+    "requirements": "2+ years of product management experience.",
+    "location": "Gurugram, India",
+    "createdAt": "2025-04-15T16:20:35.300Z"
+  },
+  {
+    "id": "1745382336310",
+    "userId": "1745382172769",
+    "title": "Business Analyst",
+    "company": "Accenture",
+    "description": "Hiring a business analyst with experience in IT solutions.",
+    "requirements": "Strong communication and analytical skills.",
+    "location": "Noida, India",
+    "createdAt": "2025-04-14T18:05:45.400Z"
+  },
+  {
+    "id": "1745388120121",
+    "userId": "1745382172760",
+    "title": "IOS Dev",
+    "company": "Apple",
+    "description": "Need an ios dev to work on the latest version of ios",
+    "requirements": "Work experience in ios of 5+ years.",
+    "location": "India",
+    "createdAt": "2025-04-23T06:02:00.121Z"
+  },
+  {
+    "id": "1745388626778",
+    "userId": "1745382172760",
+    "title": "newwww",
+    "company": "Google",
+    "description": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "requirements": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "location": "India",
+    "createdAt": "2025-04-23T06:10:26.778Z"
+  },
+  {
+    "id": "1745388746585",
+    "userId": "1745382172760",
+    "title": "newww",
+    "company": "Google",
+    "description": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "requirements": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "location": "India",
+    "createdAt": "2025-04-23T06:12:26.585Z"
+  }
+]

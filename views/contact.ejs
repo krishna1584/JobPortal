@@ -9,7 +9,58 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <%- include('partials/header', { user: user }) %>
+    <header>
+        <nav>
+            <h1>Job Portal</h1>
+            <button class="menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/jobs">Browse Jobs</a>
+                <% if (user) { %>
+                    <a href="/employer/post-job">Post a Job</a>
+                <% } %>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact</a>
+                <!-- Demo link for 404 error -->
+                <a href="/this-page-does-not-exist" style="color: #ff6b6b;">Demo 404 Error</a>
+            </div>
+            <div class="mobile-menu">
+                <a href="/">Home</a>
+                <a href="/jobs">Browse Jobs</a>
+                <% if (user) { %>
+                    <a href="/employer/post-job">Post a Job</a>
+                <% } %>
+                <a href="/about">About Us</a>
+                <a href="/contact">Contact</a>
+                <a href="/this-page-does-not-exist" style="color: #ff6b6b;">Demo 404 Error</a>
+            </div>
+            <div class="user-section">
+                <% if (user) { %>
+                    <div class="user-profile" onclick="toggleUserDropdown()">
+                        <% if (user.avatar && user.avatar !== '/images/default-avatar.png') { %>
+                            <img src="<%= user.avatar %>" alt="<%= user.name %>">
+                        <% } else { %>
+                            <div class="user-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        <% } %>
+                        <span><%= user.name %></span>
+                        <div class="user-dropdown">
+                            <a href="/auth/logout">Logout</a>
+                        </div>
+                    </div>
+                <% } else { %>
+                    <a href="/auth/login">Sign In</a>
+                    <a href="/auth/register">Sign Up</a>
+                <% } %>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
 
     <main>
         <section class="contact-section">
@@ -20,20 +71,24 @@
                 <div class="contact-card">
                     <i class="fas fa-envelope"></i>
                     <h3>Email</h3>
-                    <p>support@jobportal.co.in</p>
+                    <p>support@jobportal.com</p>
                 </div>
                 <div class="contact-card">
                     <i class="fas fa-phone"></i>
                     <h3>Phone</h3>
-                    <p>+91 (800) 123-4567</p>
+                    <p>+1 (555) 123-4567</p>
                 </div>
                 <div class="contact-card">
                     <i class="fas fa-map-marker-alt"></i>
                     <h3>Address</h3>
-                    <p>Cyber City<br>Gurugram, Haryana 122002<br>India</p>
+                    <p>123 Job Street<br>Career City, WK 12345</p>
                 </div>
             </div>
-
+            <% if (success && success.length > 0) { %>
+                <div class="alert alert-success">
+                    <%= success[0] %>
+                </div>
+            <% } %>
             <div class="contact-form">
                 <h3>Send us a Message</h3>
                 <form action="/contact" method="POST">
@@ -55,12 +110,73 @@
         </section>
     </main>
 
-    <%- include('partials/footer') %>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Connecting talented professionals with amazing opportunities since 2023.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="/jobs">Find Jobs</a></li>
+                    <li><a href="/employer/post-job">Post a Job</a></li>
+                    <li><a href="/about">About Us</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> support@jobportal.com</li>
+                    <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Job Portal. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            const themeIcon = document.querySelector('.theme-toggle i');
+            themeIcon.className = newTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        function toggleUserDropdown() {
+            const dropdown = document.querySelector('.user-dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('active');
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.user-profile')) {
+                const dropdown = document.querySelector('.user-dropdown');
+                if (dropdown) dropdown.classList.remove('active');
+            }
+            if (!e.target.closest('.menu-toggle') && !e.target.closest('.mobile-menu')) {
+                const mobileMenu = document.querySelector('.mobile-menu');
+                if (mobileMenu) mobileMenu.classList.remove('active');
+            }
+        });
+
         // Set initial theme
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
+        const themeIcon = document.querySelector('.theme-toggle i');
+        themeIcon.className = savedTheme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
     </script>
 </body>
 </html>
